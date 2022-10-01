@@ -55,7 +55,10 @@ def series(A, X, n):
         print (int((nFact * aPow * xPow) / (niFact * iFact)), end = " ")
      
 # Driver Code
-A = 3; X = 4; n = 5
+while True:
+    A = int(input('Enter the First no.'))
+    X = int(input('Enter the Second no.'))
+    n = int(input('Enter the Degree'))
 series(A, X, n)
 
 
