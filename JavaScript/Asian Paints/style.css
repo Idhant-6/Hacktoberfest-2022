@@ -1,0 +1,41 @@
+body {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #fefae0;
+  position: absolute;
+  top: 50%;
+  transform: translate(50%, -50%);
+  padding: 10px;
+}
+.divEl {
+  width: 200px;
+  height: 170px;
+  line-height: 4em;
+  margin: 10px;
+  padding: 5px;
+  float: left;
+  border: 5px solid #e9edc9;
+  border-radius: 10px;
+}
+#drag1 {
+  background-image: url(https://picsum.photos/200);
+}
+#drag2 {
+  background-image: url(https://picsum.photos/203);
+}
+
+#drag3 {
+  background-image: url(https://picsum.photos/202);
+}
+
+#drag4 {
+  background-image: url(https://picsum.photos/204);
+}
+
+#drag5 {
+  background-image: url(https://picsum.photos/205);
+}
+
+#drag6 {
+  background-image: url(https://picsum.photos/206);
+}
