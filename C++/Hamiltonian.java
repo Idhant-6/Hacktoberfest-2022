@@ -1,98 +1,131 @@
-#include<stdio.h>
-#include<stdlib.h>
- 
 
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// Number of vertices
 #define V 5
- 
+
 void printSolution(int path[]);
- 
 
-int isSafe(int v, int graph[V][V], int path[], int pos) {
-   
-    if (graph[path[pos - 1]][v] == 0)
-        return 0;
- 
-   
-    int i;
-    for (i = 0; i < pos; i++)
-        if (path[i] == v)
-            return 0;
- 
-    return 1;
+
+bool isSafe(int v, bool graph[V][V],
+			int path[], int pos)
+{
+	
+	if (graph [path[pos - 1]][ v ] == 0)
+		return false;
+
+	
+	for (int i = 0; i < pos; i++)
+		if (path[i] == v)
+			return false;
+
+	return true;
 }
 
-int hamCycleUtil(int graph[V][V], int path[], int pos) {
- 
-    if (pos == V) {
-       
-        if (graph[path[pos - 1]][path[0]] == 1)
-            return 1;
-        else
-            return 0;
-    }
 
-    int v;
-    for (v = 1; v < V; v++) {
-        if (isSafe(v, graph, path, pos)) {
-            path[pos] = v;
- 
-         
-            if (hamCycleUtil(graph, path, pos + 1) == 1)
-                return 1;
- 
-            
-             then remove it */
-            path[pos] = -1;
-        }
-    }
- 
-    
-    return 0;
+bool hamCycleUtil(bool graph[V][V],
+				int path[], int pos)
+{
+	
+	if (pos == V)
+	{
+		
+		if (graph[path[pos - 1]][path[0]] == 1)
+			return true;
+		else
+			return false;
+	}
+
+	
+	for (int v = 1; v < V; v++)
+	{
+	
+		if (isSafe(v, graph, path, pos))
+		{
+			path[pos] = v;
+
+			
+			if (hamCycleUtil (graph, path, pos + 1) == true)
+				return true;
+
+		
+			path[pos] = -1;
+		}
+	}
+
+	/* If no vertex can be added to
+	Hamiltonian Cycle constructed so far,
+	then return false */
+	return false;
 }
 
-int hamCycle(int graph[V][V]) {
-    int *path = new int[V];
-    int i;
-    for (i = 0; i < V; i++)
-        path[i] = -1;
- 
-    
-    path[0] = 0;
-    if (hamCycleUtil(graph, path, 1) == 0) {
-        printf("\nSolution does not exist");
-        return 0;
-    }
- 
-    printSolution(path);
-    return 1;
+
+bool hamCycle(bool graph[V][V])
+{
+	int *path = new int[V];
+	for (int i = 0; i < V; i++)
+		path[i] = -1;
+
+	
+	path[0] = 0;
+	if (hamCycleUtil(graph, path, 1) == false )
+	{
+		cout << "\nSolution does not exist";
+		return false;
+	}
+
+	printSolution(path);
+	return true;
 }
 
-void printSolution(int path[]) {
-    printf("Solution Exists:"
-        " Following is one Hamiltonian Cycle \n");
-    int i;
-    for (i = 0; i < V; i++)
-        printf(" %d ", path[i]);
- 
-  
-    printf(" %d ", path[0]);
-    printf("\n");
+
+void printSolution(int path[])
+{
+	cout << "Solution Exists:"
+			" Following is one Hamiltonian Cycle \n";
+	for (int i = 0; i < V; i++)
+		cout << path[i] << " ";
+
+
+	cout << path[0] << " ";
+	cout << endl;
 }
 
-int main() {
-   
-    int graph1[V][V] = { { 0, 1, 0, 1, 0 }, { 1, 0, 1, 1, 1 },
-            { 0, 1, 0, 0, 1 }, { 1, 1, 0, 0, 1 }, { 0, 1, 1, 1, 0 }, };
- 
-   
-    hamCycle(graph1);
- 
-    
-    int graph2[V][V] = { { 0, 1, 0, 1, 0 }, { 1, 0, 1, 1, 1 },
-            { 0, 1, 0, 0, 1 }, { 1, 1, 0, 0, 0 }, { 0, 1, 1, 0, 0 }, };
- 
-    
-    hamCycle(graph2);
- 
-    return 0;
+
+int main()
+{
+	/* Let us create the following graph
+		(0)--(1)--(2)
+		| / \ |
+		| / \ |
+		| / \ |
+		(3)-------(4) */
+	bool graph1[V][V] = {{0, 1, 0, 1, 0},
+						{1, 0, 1, 1, 1},
+						{0, 1, 0, 0, 1},
+						{1, 1, 0, 0, 1},
+						{0, 1, 1, 1, 0}};
+	
+	
+	hamCycle(graph1);
+	
+
+	(0)--(1)--(2)
+	| / \ |
+	| / \ |
+	| / \ |
+	(3) (4) */
+	bool graph2[V][V] = {{0, 1, 0, 1, 0},
+						{1, 0, 1, 1, 1},
+						{0, 1, 0, 0, 1},
+						{1, 1, 0, 0, 0},
+						{0, 1, 1, 0, 0}};
+
+	
+	hamCycle(graph2);
+
+	return 0;
 }
+
